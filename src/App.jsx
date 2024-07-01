@@ -56,11 +56,15 @@ const App = () => {
     setFotosDaGaleria(tag.id !== 0 ? fotos.filter(foto => foto.tagId === tag.id) : fotos)
   }
 
+  const onProcurar = (texto) => {
+    setFotosDaGaleria(fotos.filter(foto => foto.titulo.toLowerCase().includes(texto.toLowerCase())))
+  }
+
   return (
     <FundoGradiente>
       <EstilosGlobais />
       <AppContainer>
-        <Cabecalho />
+        <Cabecalho onProcurar={onProcurar} />
         <MainContainer>
           <BarraLateral />
           <ConteudoGaleria>

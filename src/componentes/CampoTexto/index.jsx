@@ -30,10 +30,19 @@ const IconeLupa = styled.img`
     height: 38px;
 `;
 
-const CampoTexto = (props) => {
+const CampoTexto = (/*props*/ {onProcurar}) => {
     return (
         <ContainerEstilizado>
-            <CampoTextoEstilizado {...props} />
+            <CampoTextoEstilizado
+                // {...props}
+                onKeyDown={(event) => {
+                    if (event.code === 'Enter') {
+                        event.currentTarget.blur()
+                        onProcurar(event.target.value.trim())
+                    }
+                }}
+                placeholder="O que você procura?"
+            />
             <IconeLupa src={search} alt="ícone de lupa" />
         </ContainerEstilizado>
     )
