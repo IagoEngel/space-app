@@ -7,7 +7,7 @@ import bannerBackground from './assets/banner.png'
 import Galeria from "./componentes/Galeria"
 
 import fotos from './fotos.json'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModalZoom from "./componentes/ModalZoom"
 
 const FundoGradiente = styled.div`
@@ -51,7 +51,11 @@ const App = () => {
       }
     }))
   }
-  
+
+  const aoSelecionarTag = (tag) => {
+    setFotosDaGaleria(tag.id !== 0 ? fotos.filter(foto => foto.tagId === tag.id) : fotos)
+  }
+
   return (
     <FundoGradiente>
       <EstilosGlobais />
@@ -64,15 +68,16 @@ const App = () => {
               texto="A galeria mais completa de fotos do espaço!"
               backgroundImage={bannerBackground}
             />
-            <Galeria 
-              aoFotoSelecionada={foto => setFotoSelecionada(foto)} 
+            <Galeria
+              aoFotoSelecionada={foto => setFotoSelecionada(foto)}
               aoAlternarFavorito={aoAlternarFavorito}
+              aoSelecionarTag={aoSelecionarTag}
               fotos={fotosDaGaleria}
             />
           </ConteudoGaleria>
         </MainContainer>
       </AppContainer>
-      <ModalZoom 
+      <ModalZoom
         foto={fotoSelecionada}
         aoFechar={() => setFotoSelecionada(null)}
         aoAlternarFavorito={aoAlternarFavorito}
